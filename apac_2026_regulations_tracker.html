@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APAC 2026 Regulations Tracker | Technology Companies</title>
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #2d5a87;
+            --accent: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --tier1: #1e3a5f;
+            --tier2: #5d6d7e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .card-icon.critical { background: #fde8e8; }
+        .card-icon.warning { background: #fef3e2; }
+        .card-icon.info { background: #e8f4fd; }
+        .card-icon.success { background: #e8f8ef; }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .filters {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        select, input[type="text"] {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            min-width: 180px;
+            transition: border-color 0.2s;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        th {
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th.sortable:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        tr.tier-1 {
+            border-left: 4px solid var(--tier1);
+        }
+
+        tr.tier-2 {
+            border-left: 4px solid var(--tier2);
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tier-1-badge {
+            background: var(--tier1);
+            color: white;
+        }
+
+        .tier-2-badge {
+            background: #e8e8e8;
+            color: var(--tier2);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-enacted { background: #d4edda; color: #155724; }
+        .status-active { background: #d4edda; color: #155724; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-proposed { background: #e2e3e5; color: #383d41; }
+
+        .priority-score {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .priority-critical { background: #fde8e8; color: #c0392b; border: 2px solid #e74c3c; }
+        .priority-high { background: #fef3e2; color: #d35400; border: 2px solid #f39c12; }
+        .priority-medium { background: #e8f4fd; color: #2980b9; border: 2px solid #3498db; }
+        .priority-low { background: #e8e8e8; color: #666; border: 2px solid #bbb; }
+
+        .domain-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 2px;
+        }
+
+        .domain-privacy { background: #e8d5e8; color: #8e44ad; }
+        .domain-ai { background: #d5e8e8; color: #16a085; }
+        .domain-cyber { background: #e8e0d5; color: #d35400; }
+        .domain-esign { background: #d5d8e8; color: #2c3e50; }
+        .domain-infra { background: #e8d5d5; color: #c0392b; }
+        .domain-digital { background: #d5e8d5; color: #27ae60; }
+
+        .country-flag {
+            font-size: 1.3rem;
+            margin-right: 8px;
+        }
+
+        .extraterritorial {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .extra-yes { background: #fde8e8; color: #c0392b; }
+        .extra-no { background: #e8e8e8; color: #666; }
+
+        .summary-cell {
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .obligations-cell {
+            max-width: 250px;
+            font-size: 0.85rem;
+        }
+
+        .penalties-cell {
+            max-width: 180px;
+            font-size: 0.85rem;
+            color: #c0392b;
+        }
+
+        .source-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .source-link:hover {
+            text-decoration: underline;
+        }
+
+        .timeline-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .timeline-section h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--danger), var(--warning), var(--success));
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -26px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+            background: var(--primary);
+        }
+
+        .timeline-date {
+            min-width: 120px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-country {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1200px) {
+            .table-container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 1400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            select, input[type="text"] {
+                width: 100%;
+            }
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+
+        .print-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .print-btn:hover {
+            background: var(--secondary);
+        }
+
+        @media print {
+            body { background: white; }
+            .filters, .print-btn { display: none; }
+            .card { break-inside: avoid; }
+            header { background: var(--primary) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>APAC 2026 Regulations Tracker</h1>
+            <p>Comprehensive regulatory intelligence for US technology companies operating in Asia-Pacific</p>
+            <div class="meta-info">
+                <span class="meta-badge">35+ Regulations</span>
+                <span class="meta-badge">9 Jurisdictions</span>
+                <span class="meta-badge">SaaS | eSignature | AI Software</span>
+                <span class="meta-badge">Generated: January 15, 2026</span>
+            </div>
+        </header>
+
+        <div class="summary-cards">
+            <div class="card">
+                <h3><div class="card-icon critical">!</div> Critical Priority</h3>
+                <div class="stat-number">6</div>
+                <div class="stat-label">Regulations requiring immediate action (Score 9-10)</div>
+            </div>
+            <div class="card">
+                <h3><div class="card-icon warning">!</div> High Priority</h3>
+                <div class="stat-number">12</div>
+                <div class="stat-label">Regulations requiring active monitoring (Score 7-8)</div>
+            </div>
+            <div class="card">
+                <h3><div class="card-icon info">i</div> Tier 1 Countries</h3>
+                <div class="stat-number">3</div>
+                <div class="stat-label">Australia, Singapore, Japan</div>
+            </div>
+            <div class="card">
+                <h3><div class="card-icon success">+</div> Tier 2 Countries</h3>
+                <div class="stat-number">6</div>
+                <div class="stat-label">South Korea, India, Indonesia, Philippines, NZ, HK</div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <h2>2026 Compliance Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Jan 22, 2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">AI Basic Act</div>
+                        <div class="timeline-country">South Korea - First comprehensive AI law in APAC</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Jan 2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Critical Infrastructure Ordinance</div>
+                        <div class="timeline-country">Hong Kong - First comprehensive cybersecurity statute</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Mar 4, 2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">IoT Security Standards</div>
+                        <div class="timeline-country">Australia - Mandatory for CI operators</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Mar 9, 2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Online Safety Phase 2 Codes</div>
+                        <div class="timeline-country">Australia - Content moderation requirements</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">May 1, 2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Privacy Amendment - IPP3A</div>
+                        <div class="timeline-country">New Zealand - Indirect collection notification</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Nov 2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Active Cyber Defense - CI Reporting</div>
+                        <div class="timeline-country">Japan - Mandatory incident reporting for infrastructure</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Dec 10, 2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Privacy Act - ADM Disclosure & Children's Code</div>
+                        <div class="timeline-country">Australia - Major privacy compliance deadlines</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label>Country</label>
+                <select id="countryFilter" onchange="filterTable()">
+                    <option value="">All Countries</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Japan">Japan</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Hong Kong">Hong Kong</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Tier</label>
+                <select id="tierFilter" onchange="filterTable()">
+                    <option value="">All Tiers</option>
+                    <option value="1">Tier 1 (Priority)</option>
+                    <option value="2">Tier 2</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Domain</label>
+                <select id="domainFilter" onchange="filterTable()">
+                    <option value="">All Domains</option>
+                    <option value="Data Privacy">Data Privacy</option>
+                    <option value="AI Governance">AI Governance</option>
+                    <option value="Cybersecurity">Cybersecurity</option>
+                    <option value="eSignature">eSignature</option>
+                    <option value="Critical Infrastructure">Critical Infrastructure</option>
+                    <option value="Digital Services">Digital Services</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Priority</label>
+                <select id="priorityFilter" onchange="filterTable()">
+                    <option value="">All Priorities</option>
+                    <option value="critical">Critical (9-10)</option>
+                    <option value="high">High (7-8)</option>
+                    <option value="medium">Medium (5-6)</option>
+                    <option value="low">Low (1-4)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Search</label>
+                <input type="text" id="searchFilter" placeholder="Search regulations..." onkeyup="filterTable()">
+            </div>
+            <div class="filter-group" style="margin-left: auto;">
+                <label>&nbsp;</label>
+                <button class="print-btn" onclick="window.print()">Print / Export PDF</button>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <span class="priority-score priority-critical">10</span>
+                <span>Critical (9-10)</span>
+            </div>
+            <div class="legend-item">
+                <span class="priority-score priority-high">8</span>
+                <span>High (7-8)</span>
+            </div>
+            <div class="legend-item">
+                <span class="priority-score priority-medium">6</span>
+                <span>Medium (5-6)</span>
+            </div>
+            <div class="legend-item">
+                <span class="priority-score priority-low">4</span>
+                <span>Low (1-4)</span>
+            </div>
+            <div class="legend-item">
+                <span class="tier-badge tier-1-badge">Tier 1</span>
+                <span>Priority Countries</span>
+            </div>
+            <div class="legend-item">
+                <span class="tier-badge tier-2-badge">Tier 2</span>
+                <span>Secondary Markets</span>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="regulationsTable">
+                <thead>
+                    <tr>
+                        <th class="sortable" onclick="sortTable(0)">Country</th>
+                        <th>Tier</th>
+                        <th class="sortable" onclick="sortTable(2)">Regulation</th>
+                        <th>Domain</th>
+                        <th>Status</th>
+                        <th class="sortable" onclick="sortTable(5)">Effective Date</th>
+                        <th>Authority</th>
+                        <th>Summary</th>
+                        <th>Key Obligations</th>
+                        <th>Penalties</th>
+                        <th>US Impact</th>
+                        <th class="sortable" onclick="sortTable(11)">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- AUSTRALIA -->
+                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Data Privacy" data-priority="9">
+                        <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Privacy Act - ADM Disclosure</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-enacted">Enacted</span></td>
+                        <td><strong>Dec 10, 2026</strong></td>
+                        <td>OAIC</td>
+                        <td class="summary-cell">Privacy policies must disclose automated decision-making that significantly affects individuals</td>
+                        <td class="obligations-cell">Update privacy policies; implement ADM transparency; document AI decision systems</td>
+                        <td class="penalties-cell">Up to AU$50M or 30% turnover</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-critical">9</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Data Privacy" data-priority="7">
+                        <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Children's Online Privacy Code</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><strong>Dec 10, 2026</strong></td>
+                        <td>OAIC</td>
+                        <td class="summary-cell">Strengthened privacy protections for children in digital environments</td>
+                        <td class="obligations-cell">Age verification; enhanced consent for minors; child-specific privacy notices</td>
+                        <td class="penalties-cell">Up to AU$50M or 30% turnover</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">7</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Digital Services" data-priority="7">
+                        <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Online Safety Act - Phase 2 Codes</strong></td>
+                        <td><span class="domain-tag domain-digital">Online Safety</span></td>
+                        <td><span class="status-badge status-enacted">Enacted</span></td>
+                        <td><strong>Mar 9, 2026</strong></td>
+                        <td>eSafety Commissioner</td>
+                        <td class="summary-cell">Phase 2 codes addressing risks of adult content exposure for digital services</td>
+                        <td class="obligations-cell">Age assurance systems; content moderation; risk assessments</td>
+                        <td class="penalties-cell">Civil penalties; injunctions</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">7</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Cybersecurity" data-priority="6">
+                        <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Cyber Security Act - IoT Standards</strong></td>
+                        <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
+                        <td><span class="status-badge status-enacted">Enacted</span></td>
+                        <td><strong>Mar 4, 2026</strong></td>
+                        <td>Home Affairs</td>
+                        <td class="summary-cell">Mandatory security standards for IoT devices supplied to CI operators</td>
+                        <td class="obligations-cell">Meet IoT security standards; supply chain documentation</td>
+                        <td class="penalties-cell">Administrative penalties</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">6</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Critical Infrastructure" data-priority="8">
+                        <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>SOCI Act - Data Storage Systems</strong></td>
+                        <td><span class="domain-tag domain-infra">Critical Infra</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>Ongoing</td>
+                        <td>CISC</td>
+                        <td class="summary-cell">Data storage systems for CI assets subject to risk management and reporting</td>
+                        <td class="obligations-cell">CIRMP implementation; incident reporting; security audits</td>
+                        <td class="penalties-cell">Admin penalties; govt intervention</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">8</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="AI Governance" data-priority="5">
+                        <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>AI Safety Institute (AISI)</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-proposed">Proposed</span></td>
+                        <td>Early 2026</td>
+                        <td>Digital Government</td>
+                        <td class="summary-cell">Establishment of Australian AI Safety Institute to coordinate AI regulatory responses</td>
+                        <td class="obligations-cell">Voluntary engagement; monitor standards development</td>
+                        <td class="penalties-cell">None (voluntary)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">5</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Data Privacy" data-priority="8">
+                        <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Privacy Act - Tranche 2 Reforms</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-proposed">Proposed</span></td>
+                        <td>TBD (post-election)</td>
+                        <td>OAIC</td>
+                        <td class="summary-cell">Fair and reasonable standard; potential removal of small business exemption</td>
+                        <td class="obligations-cell">Prepare for broader obligations; enhanced individual rights</td>
+                        <td class="penalties-cell">Enhanced penalties expected</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">8</span></td>
+                    </tr>
+
+                    <!-- SINGAPORE -->
+                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="Cybersecurity" data-priority="10">
+                        <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Cybersecurity Act - FDI Provisions</strong></td>
+                        <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><strong>2026 (expected)</strong></td>
+                        <td>CSA</td>
+                        <td class="summary-cell">Major cloud providers and data centres regulated as Foundational Digital Infrastructure</td>
+                        <td class="obligations-cell">Cybersecurity codes; incident reporting; resilience standards</td>
+                        <td class="penalties-cell">Up to SGD $500K or 10% turnover</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-critical">10</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="Critical Infrastructure" data-priority="9">
+                        <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Digital Infrastructure Act (DIA)</strong></td>
+                        <td><span class="domain-tag domain-infra">Critical Infra</span></td>
+                        <td><span class="status-badge status-proposed">Proposed</span></td>
+                        <td><strong>2026 (expected)</strong></td>
+                        <td>MDDI</td>
+                        <td class="summary-cell">New legislation regulating systemically important cloud providers and data centres</td>
+                        <td class="obligations-cell">Resilience standards; incident reporting; business continuity</td>
+                        <td class="penalties-cell">Significant penalties expected</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-critical">9</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="Cybersecurity" data-priority="8">
+                        <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Cybersecurity Act - ESCI Designation</strong></td>
+                        <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><strong>2026 (expected)</strong></td>
+                        <td>CSA</td>
+                        <td class="summary-cell">Entities of Special Cybersecurity Interest holding sensitive data face enhanced obligations</td>
+                        <td class="obligations-cell">Enhanced security measures; incident reporting; compliance audits</td>
+                        <td class="penalties-cell">Up to 10% turnover or SGD $500K</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">8</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="AI Governance" data-priority="6">
+                        <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>AI Assurance Framework</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-proposed">Proposed</span></td>
+                        <td>2026 (expected)</td>
+                        <td>IMDA</td>
+                        <td class="summary-cell">Unified technical, organizational, and ethical testing criteria for AI systems</td>
+                        <td class="obligations-cell">Align with AI Verify; implement governance structures</td>
+                        <td class="penalties-cell">None (voluntary)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">6</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="Data Privacy" data-priority="6">
+                        <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>PDPA - Data Portability</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td>TBD</td>
+                        <td>PDPC</td>
+                        <td class="summary-cell">Mandatory data export in machine-readable format upon individual request</td>
+                        <td class="obligations-cell">Implement data export; portability request handling</td>
+                        <td class="penalties-cell">Up to SGD $1M or 10% turnover</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">6</span></td>
+                    </tr>
+
+                    <!-- JAPAN -->
+                    <tr class="tier-1" data-country="Japan" data-tier="1" data-domain="AI Governance" data-priority="7">
+                        <td><span class="country-flag">&#127471;&#127477;</span>Japan</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>AI Promotion Act</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>Sep 1, 2025 (ongoing)</td>
+                        <td>AI Strategic HQ</td>
+                        <td class="summary-cell">Innovation-first AI framework with non-binding transparency and accountability duties</td>
+                        <td class="obligations-cell">Implement AI governance; risk management; transparency (voluntary)</td>
+                        <td class="penalties-cell">Warnings only (no fines)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">7</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Japan" data-tier="1" data-domain="Cybersecurity" data-priority="8">
+                        <td><span class="country-flag">&#127471;&#127477;</span>Japan</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Active Cyber Defense - CI Reporting</strong></td>
+                        <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
+                        <td><span class="status-badge status-enacted">Enacted</span></td>
+                        <td><strong>Nov 2026</strong></td>
+                        <td>NCO</td>
+                        <td class="summary-cell">Mandatory incident reporting for specified essential infrastructure providers (15 sectors)</td>
+                        <td class="obligations-cell">Incident reporting systems; enhanced cybersecurity compliance</td>
+                        <td class="penalties-cell">Administrative penalties</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">8</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Japan" data-tier="1" data-domain="Data Privacy" data-priority="9">
+                        <td><span class="country-flag">&#127471;&#127477;</span>Japan</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>APPI Amendments - Admin Fines</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-proposed">Proposed</span></td>
+                        <td><strong>2026-2027</strong></td>
+                        <td>PPC</td>
+                        <td class="summary-cell">Introduction of GDPR-style administrative monetary penalties; enhanced cross-border requirements</td>
+                        <td class="obligations-cell">Prepare for significant fines; enhanced transfer compliance; consent management</td>
+                        <td class="penalties-cell">Admin fines (significant, TBD)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-critical">9</span></td>
+                    </tr>
+                    <tr class="tier-1" data-country="Japan" data-tier="1" data-domain="Critical Infrastructure" data-priority="8">
+                        <td><span class="country-flag">&#127471;&#127477;</span>Japan</td>
+                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        <td><strong>Economic Security - Cloud Designation</strong></td>
+                        <td><span class="domain-tag domain-infra">Critical Infra</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>Ongoing</td>
+                        <td>METI</td>
+                        <td class="summary-cell">Cloud programs as specified critical products with enhanced security scrutiny</td>
+                        <td class="obligations-cell">Meet security/sovereignty standards; supply chain risk management</td>
+                        <td class="penalties-cell">Contract exclusion risk</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">8</span></td>
+                    </tr>
+
+                    <!-- SOUTH KOREA -->
+                    <tr class="tier-2" data-country="South Korea" data-tier="2" data-domain="AI Governance" data-priority="9">
+                        <td><span class="country-flag">&#127472;&#127479;</span>South Korea</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>AI Basic Act (Framework Act)</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-enacted">Enacted</span></td>
+                        <td><strong>Jan 22, 2026</strong></td>
+                        <td>National AI Committee</td>
+                        <td class="summary-cell">First comprehensive AI law in APAC; risk-based approach; mandatory GenAI labeling</td>
+                        <td class="obligations-cell">User notification; impact assessments; domestic representative; watermarking</td>
+                        <td class="penalties-cell">Up to KRW 30M (~USD 21K)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-critical">9</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="South Korea" data-tier="2" data-domain="Data Privacy" data-priority="8">
+                        <td><span class="country-flag">&#127472;&#127479;</span>South Korea</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>PIPA - Domestic Representative</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-enacted">Enacted</span></td>
+                        <td><strong>Oct 2, 2025</strong></td>
+                        <td>PIPC</td>
+                        <td class="summary-cell">Foreign businesses must appoint Korean domestic representative for privacy matters</td>
+                        <td class="obligations-cell">Appoint Korean representative; implement data protection measures</td>
+                        <td class="penalties-cell">Up to 3% of sales revenue</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">8</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="South Korea" data-tier="2" data-domain="Data Privacy" data-priority="7">
+                        <td><span class="country-flag">&#127472;&#127479;</span>South Korea</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>PIPA - Data Portability Rights</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>Mar 13, 2025</td>
+                        <td>PIPC</td>
+                        <td class="summary-cell">Individuals can request transfer of personal data in machine-readable format</td>
+                        <td class="obligations-cell">Implement portability mechanisms (APIs, encrypted downloads)</td>
+                        <td class="penalties-cell">Up to 3% of sales revenue</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">7</span></td>
+                    </tr>
+
+                    <!-- INDIA -->
+                    <tr class="tier-2" data-country="India" data-tier="2" data-domain="Data Privacy" data-priority="9">
+                        <td><span class="country-flag">&#127470;&#127475;</span>India</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>DPDP Act - Phase 1 Implementation</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td><strong>May 2027 (18-month deadline)</strong></td>
+                        <td>Data Protection Board</td>
+                        <td class="summary-cell">Comprehensive data protection; 72-hour breach notification; consent requirements</td>
+                        <td class="obligations-cell">Breach notification; parental consent; privacy notices; data deletion</td>
+                        <td class="penalties-cell">Up to INR 250 crore (~USD 30M)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-critical">9</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="India" data-tier="2" data-domain="Data Privacy" data-priority="6">
+                        <td><span class="country-flag">&#127470;&#127475;</span>India</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>DPDP - Consent Manager Registration</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><strong>Nov 13, 2026</strong></td>
+                        <td>Data Protection Board</td>
+                        <td class="summary-cell">Consent manager registration and certification requirements</td>
+                        <td class="obligations-cell">Register as consent manager if providing such services</td>
+                        <td class="penalties-cell">Administrative penalties</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">6</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="India" data-tier="2" data-domain="AI Governance" data-priority="5">
+                        <td><span class="country-flag">&#127470;&#127475;</span>India</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>AI Governance Guidelines</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>Nov 2025 (voluntary)</td>
+                        <td>MeitY</td>
+                        <td class="summary-cell">Light-touch, innovation-first guidelines; no AI-specific law</td>
+                        <td class="obligations-cell">Voluntary compliance with governance principles</td>
+                        <td class="penalties-cell">None (voluntary)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">5</span></td>
+                    </tr>
+
+                    <!-- INDONESIA -->
+                    <tr class="tier-2" data-country="Indonesia" data-tier="2" data-domain="Data Privacy" data-priority="8">
+                        <td><span class="country-flag">&#127470;&#127465;</span>Indonesia</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>PDP Law - Full Implementation</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>Oct 17, 2024 (transition ended)</td>
+                        <td>PDP Agency (forming 2026)</td>
+                        <td class="summary-cell">Comprehensive data protection framework with extraterritorial scope</td>
+                        <td class="obligations-cell">Full compliance; transfer impact assessments; security measures</td>
+                        <td class="penalties-cell">Up to 2% revenue; criminal up to IDR 60B</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">8</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="Indonesia" data-tier="2" data-domain="Data Privacy" data-priority="7">
+                        <td><span class="country-flag">&#127470;&#127465;</span>Indonesia</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>PDP Agency Establishment</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><strong>2026 (targeted)</strong></td>
+                        <td>PDP Agency</td>
+                        <td class="summary-cell">Dedicated agency for PDP Law enforcement to be operational</td>
+                        <td class="obligations-cell">Prepare for active enforcement</td>
+                        <td class="penalties-cell">Enhanced enforcement expected</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">7</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="Indonesia" data-tier="2" data-domain="AI Governance" data-priority="6">
+                        <td><span class="country-flag">&#127470;&#127465;</span>Indonesia</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>AI Presidential Regulation</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-proposed">Proposed</span></td>
+                        <td><strong>Early 2026</strong></td>
+                        <td>Ministry of Comms & Digital</td>
+                        <td class="summary-cell">First comprehensive AI regulation covering ethics, safety, and security</td>
+                        <td class="obligations-cell">Monitor development; prepare for ethics/safety requirements</td>
+                        <td class="penalties-cell">TBD</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">6</span></td>
+                    </tr>
+
+                    <!-- PHILIPPINES -->
+                    <tr class="tier-2" data-country="Philippines" data-tier="2" data-domain="Data Privacy" data-priority="6">
+                        <td><span class="country-flag">&#127477;&#127469;</span>Philippines</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>Data Privacy Act - NPC Registration</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>Ongoing</td>
+                        <td>NPC</td>
+                        <td class="summary-cell">Mandatory registration of data processing systems with NPC</td>
+                        <td class="obligations-cell">Register data processing systems; privacy impact assessments</td>
+                        <td class="penalties-cell">1-6 years imprisonment; fines</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">6</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="Philippines" data-tier="2" data-domain="AI Governance" data-priority="5">
+                        <td><span class="country-flag">&#127477;&#127469;</span>Philippines</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>AI Development Act (Proposed)</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-proposed">Proposed</span></td>
+                        <td>TBD</td>
+                        <td>DICT</td>
+                        <td class="summary-cell">Proposed AI Development Authority; risk-based classification</td>
+                        <td class="obligations-cell">Monitor legislative developments</td>
+                        <td class="penalties-cell">TBD</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">5</span></td>
+                    </tr>
+
+                    <!-- NEW ZEALAND -->
+                    <tr class="tier-2" data-country="New Zealand" data-tier="2" data-domain="Data Privacy" data-priority="7">
+                        <td><span class="country-flag">&#127475;&#127487;</span>New Zealand</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>Privacy Amendment - IPP3A</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-enacted">Enacted</span></td>
+                        <td><strong>May 1, 2026</strong></td>
+                        <td>Privacy Commissioner</td>
+                        <td class="summary-cell">Requirement to notify individuals when personal information collected indirectly</td>
+                        <td class="obligations-cell">Implement notification systems for indirect collection; update privacy notices</td>
+                        <td class="penalties-cell">Commissioner enforcement powers</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">7</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="New Zealand" data-tier="2" data-domain="Data Privacy" data-priority="6">
+                        <td><span class="country-flag">&#127475;&#127487;</span>New Zealand</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>Biometrics Processing Privacy Code</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-enacted">Enacted</span></td>
+                        <td><strong>Aug 3, 2026</strong> (existing)</td>
+                        <td>Privacy Commissioner</td>
+                        <td class="summary-cell">Specific code for biometric data processing with enhanced requirements</td>
+                        <td class="obligations-cell">If processing biometrics: comply with Code; enhanced safeguards</td>
+                        <td class="penalties-cell">Commissioner enforcement powers</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">6</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="New Zealand" data-tier="2" data-domain="AI Governance" data-priority="4">
+                        <td><span class="country-flag">&#127475;&#127487;</span>New Zealand</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>AI Strategy & Responsible AI Guidance</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>2025 (voluntary)</td>
+                        <td>MBIE</td>
+                        <td class="summary-cell">Light-touch, principles-based approach; OECD alignment</td>
+                        <td class="obligations-cell">Voluntary adoption of guidance</td>
+                        <td class="penalties-cell">None (voluntary)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-low">4</span></td>
+                    </tr>
+
+                    <!-- HONG KONG -->
+                    <tr class="tier-2" data-country="Hong Kong" data-tier="2" data-domain="Cybersecurity" data-priority="7">
+                        <td><span class="country-flag">&#127469;&#127472;</span>Hong Kong</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>Critical Infrastructure Ordinance</strong></td>
+                        <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td><strong>Jan 2026</strong></td>
+                        <td>Commissioner of CI</td>
+                        <td class="summary-cell">First comprehensive cybersecurity statute for critical infrastructure</td>
+                        <td class="obligations-cell">If CI operator: security measures; incident reporting; audits</td>
+                        <td class="penalties-cell">Administrative penalties</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-high">7</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="Hong Kong" data-tier="2" data-domain="Data Privacy" data-priority="6">
+                        <td><span class="country-flag">&#127469;&#127472;</span>Hong Kong</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>PDPO - Proposed Amendments</strong></td>
+                        <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
+                        <td><span class="status-badge status-proposed">Proposed</span></td>
+                        <td>TBD</td>
+                        <td>PCPD</td>
+                        <td class="summary-cell">Proposed: mandatory breach notification; admin fines; processor regulation</td>
+                        <td class="obligations-cell">Monitor developments; prepare for potential obligations</td>
+                        <td class="penalties-cell">Proposed admin fines</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-medium">6</span></td>
+                    </tr>
+                    <tr class="tier-2" data-country="Hong Kong" data-tier="2" data-domain="AI Governance" data-priority="4">
+                        <td><span class="country-flag">&#127469;&#127472;</span>Hong Kong</td>
+                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        <td><strong>Generative AI Technical Guidelines</strong></td>
+                        <td><span class="domain-tag domain-ai">AI Governance</span></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td>Apr 2025 (voluntary)</td>
+                        <td>Digital Policy Office</td>
+                        <td class="summary-cell">Voluntary guidelines for ethical GenAI development and use</td>
+                        <td class="obligations-cell">Voluntary compliance with best practices</td>
+                        <td class="penalties-cell">None (voluntary)</td>
+                        <td><span class="extraterritorial extra-yes">Yes</span></td>
+                        <td><span class="priority-score priority-low">4</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            <p>APAC 2026 Regulations Tracker | Generated January 15, 2026</p>
+            <p>For US SaaS, eSignature, and AI Software Companies Operating Cross-Border</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #999;">This document is for informational purposes only and does not constitute legal advice.</p>
+        </footer>
+    </div>
+
+    <script>
+        function filterTable() {
+            const countryFilter = document.getElementById('countryFilter').value.toLowerCase();
+            const tierFilter = document.getElementById('tierFilter').value;
+            const domainFilter = document.getElementById('domainFilter').value.toLowerCase();
+            const priorityFilter = document.getElementById('priorityFilter').value;
+            const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+
+            const rows = document.querySelectorAll('#regulationsTable tbody tr');
+
+            rows.forEach(row => {
+                const country = row.dataset.country.toLowerCase();
+                const tier = row.dataset.tier;
+                const domain = row.dataset.domain.toLowerCase();
+                const priority = parseInt(row.dataset.priority);
+                const text = row.textContent.toLowerCase();
+
+                let show = true;
+
+                if (countryFilter && !country.includes(countryFilter)) show = false;
+                if (tierFilter && tier !== tierFilter) show = false;
+                if (domainFilter && !domain.includes(domainFilter)) show = false;
+                if (searchFilter && !text.includes(searchFilter)) show = false;
+
+                if (priorityFilter) {
+                    if (priorityFilter === 'critical' && priority < 9) show = false;
+                    if (priorityFilter === 'high' && (priority < 7 || priority > 8)) show = false;
+                    if (priorityFilter === 'medium' && (priority < 5 || priority > 6)) show = false;
+                    if (priorityFilter === 'low' && priority > 4) show = false;
+                }
+
+                row.style.display = show ? '' : 'none';
+            });
+        }
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById('regulationsTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            const sortedRows = rows.sort((a, b) => {
+                let aValue, bValue;
+
+                if (columnIndex === 11) { // Priority column
+                    aValue = parseInt(a.dataset.priority);
+                    bValue = parseInt(b.dataset.priority);
+                    return bValue - aValue; // Descending for priority
+                } else {
+                    aValue = a.cells[columnIndex].textContent.trim();
+                    bValue = b.cells[columnIndex].textContent.trim();
+                    return aValue.localeCompare(bValue);
+                }
+            });
+
+            sortedRows.forEach(row => tbody.appendChild(row));
+        }
+    </script>
+</body>
+</html>
