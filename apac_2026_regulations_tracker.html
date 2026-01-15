@@ -170,7 +170,7 @@
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
+            overflow-x: auto;
             margin-bottom: 30px;
         }
 
@@ -200,7 +200,8 @@
         }
 
         th.sortable:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.15);
+            text-decoration: underline;
         }
 
         td {
@@ -494,14 +495,14 @@
                 <div class="stat-label">Regulations requiring active monitoring (Score 7-8)</div>
             </div>
             <div class="card">
-                <h3><div class="card-icon info">i</div> Tier 1 Countries</h3>
-                <div class="stat-number">3</div>
-                <div class="stat-label">Australia, Singapore, Japan</div>
+                <h3><div class="card-icon info">i</div> Countries Covered</h3>
+                <div class="stat-number">9</div>
+                <div class="stat-label">AU, SG, JP, KR, IN, ID, PH, NZ, HK</div>
             </div>
             <div class="card">
-                <h3><div class="card-icon success">+</div> Tier 2 Countries</h3>
+                <h3><div class="card-icon success">+</div> Regulatory Domains</h3>
                 <div class="stat-number">6</div>
-                <div class="stat-label">South Korea, India, Indonesia, Philippines, NZ, HK</div>
+                <div class="stat-label">Privacy, AI, Cyber, eSign, Infrastructure, Digital</div>
             </div>
         </div>
 
@@ -584,14 +585,6 @@
                 </select>
             </div>
             <div class="filter-group">
-                <label>Tier</label>
-                <select id="tierFilter" onchange="filterTable()">
-                    <option value="">All Tiers</option>
-                    <option value="1">Tier 1 (Priority)</option>
-                    <option value="2">Tier 2</option>
-                </select>
-            </div>
-            <div class="filter-group">
                 <label>Domain</label>
                 <select id="domainFilter" onchange="filterTable()">
                     <option value="">All Domains</option>
@@ -640,14 +633,6 @@
                 <span class="priority-score priority-low">4</span>
                 <span>Low (1-4)</span>
             </div>
-            <div class="legend-item">
-                <span class="tier-badge tier-1-badge">Tier 1</span>
-                <span>Priority Countries</span>
-            </div>
-            <div class="legend-item">
-                <span class="tier-badge tier-2-badge">Tier 2</span>
-                <span>Secondary Markets</span>
-            </div>
         </div>
 
         <div class="table-container">
@@ -655,24 +640,22 @@
                 <thead>
                     <tr>
                         <th class="sortable" onclick="sortTable(0)">Country</th>
-                        <th>Tier</th>
-                        <th class="sortable" onclick="sortTable(2)">Regulation</th>
+                        <th class="sortable" onclick="sortTable(1)">Regulation</th>
                         <th>Domain</th>
                         <th>Status</th>
-                        <th class="sortable" onclick="sortTable(5)">Effective Date</th>
+                        <th class="sortable" onclick="sortTable(4)">Effective Date</th>
                         <th>Authority</th>
                         <th>Summary</th>
                         <th>Key Obligations</th>
                         <th>Penalties</th>
                         <th>US Impact</th>
-                        <th class="sortable" onclick="sortTable(11)">Priority</th>
+                        <th class="sortable" onclick="sortTable(10)">Priority</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- AUSTRALIA -->
-                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Data Privacy" data-priority="9">
+                    <tr data-country="Australia" data-domain="Data Privacy" data-priority="9">
                         <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
                         <td><strong>Privacy Act - ADM Disclosure</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-enacted">Enacted</span></td>
@@ -684,9 +667,8 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-critical">9</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Data Privacy" data-priority="7">
+                    <tr data-country="Australia" data-domain="Data Privacy" data-priority="7">
                         <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
                         <td><strong>Children's Online Privacy Code</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-pending">Pending</span></td>
@@ -698,9 +680,8 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">7</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Digital Services" data-priority="7">
+                    <tr data-country="Australia" data-domain="Digital Services" data-priority="7">
                         <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
                         <td><strong>Online Safety Act - Phase 2 Codes</strong></td>
                         <td><span class="domain-tag domain-digital">Online Safety</span></td>
                         <td><span class="status-badge status-enacted">Enacted</span></td>
@@ -712,9 +693,8 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">7</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Cybersecurity" data-priority="6">
+                    <tr data-country="Australia" data-domain="Cybersecurity" data-priority="6">
                         <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
                         <td><strong>Cyber Security Act - IoT Standards</strong></td>
                         <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
                         <td><span class="status-badge status-enacted">Enacted</span></td>
@@ -726,9 +706,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-medium">6</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Critical Infrastructure" data-priority="8">
+                    <tr data-country="Australia" data-domain="Critical Infrastructure" data-priority="8">
                         <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>SOCI Act - Data Storage Systems</strong></td>
                         <td><span class="domain-tag domain-infra">Critical Infra</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -740,9 +720,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">8</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="AI Governance" data-priority="5">
+                    <tr data-country="Australia" data-domain="AI Governance" data-priority="5">
                         <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>AI Safety Institute (AISI)</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-proposed">Proposed</span></td>
@@ -754,9 +734,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-medium">5</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Australia" data-tier="1" data-domain="Data Privacy" data-priority="8">
+                    <tr data-country="Australia" data-domain="Data Privacy" data-priority="8">
                         <td><span class="country-flag">&#127462;&#127482;</span>Australia</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>Privacy Act - Tranche 2 Reforms</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-proposed">Proposed</span></td>
@@ -770,9 +750,9 @@
                     </tr>
 
                     <!-- SINGAPORE -->
-                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="Cybersecurity" data-priority="10">
+                    <tr data-country="Singapore" data-domain="Cybersecurity" data-priority="10">
                         <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>Cybersecurity Act - FDI Provisions</strong></td>
                         <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
                         <td><span class="status-badge status-pending">Pending</span></td>
@@ -784,9 +764,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-critical">10</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="Critical Infrastructure" data-priority="9">
+                    <tr data-country="Singapore" data-domain="Critical Infrastructure" data-priority="9">
                         <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>Digital Infrastructure Act (DIA)</strong></td>
                         <td><span class="domain-tag domain-infra">Critical Infra</span></td>
                         <td><span class="status-badge status-proposed">Proposed</span></td>
@@ -798,9 +778,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-critical">9</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="Cybersecurity" data-priority="8">
+                    <tr data-country="Singapore" data-domain="Cybersecurity" data-priority="8">
                         <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>Cybersecurity Act - ESCI Designation</strong></td>
                         <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
                         <td><span class="status-badge status-pending">Pending</span></td>
@@ -812,9 +792,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">8</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="AI Governance" data-priority="6">
+                    <tr data-country="Singapore" data-domain="AI Governance" data-priority="6">
                         <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>AI Assurance Framework</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-proposed">Proposed</span></td>
@@ -826,9 +806,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-medium">6</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Singapore" data-tier="1" data-domain="Data Privacy" data-priority="6">
+                    <tr data-country="Singapore" data-domain="Data Privacy" data-priority="6">
                         <td><span class="country-flag">&#127480;&#127468;</span>Singapore</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>PDPA - Data Portability</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-pending">Pending</span></td>
@@ -842,9 +822,9 @@
                     </tr>
 
                     <!-- JAPAN -->
-                    <tr class="tier-1" data-country="Japan" data-tier="1" data-domain="AI Governance" data-priority="7">
+                    <tr data-country="Japan" data-domain="AI Governance" data-priority="7">
                         <td><span class="country-flag">&#127471;&#127477;</span>Japan</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>AI Promotion Act</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -856,9 +836,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">7</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Japan" data-tier="1" data-domain="Cybersecurity" data-priority="8">
+                    <tr data-country="Japan" data-domain="Cybersecurity" data-priority="8">
                         <td><span class="country-flag">&#127471;&#127477;</span>Japan</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>Active Cyber Defense - CI Reporting</strong></td>
                         <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
                         <td><span class="status-badge status-enacted">Enacted</span></td>
@@ -870,9 +850,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">8</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Japan" data-tier="1" data-domain="Data Privacy" data-priority="9">
+                    <tr data-country="Japan" data-domain="Data Privacy" data-priority="9">
                         <td><span class="country-flag">&#127471;&#127477;</span>Japan</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>APPI Amendments - Admin Fines</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-proposed">Proposed</span></td>
@@ -884,9 +864,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-critical">9</span></td>
                     </tr>
-                    <tr class="tier-1" data-country="Japan" data-tier="1" data-domain="Critical Infrastructure" data-priority="8">
+                    <tr data-country="Japan" data-domain="Critical Infrastructure" data-priority="8">
                         <td><span class="country-flag">&#127471;&#127477;</span>Japan</td>
-                        <td><span class="tier-badge tier-1-badge">Tier 1</span></td>
+                        
                         <td><strong>Economic Security - Cloud Designation</strong></td>
                         <td><span class="domain-tag domain-infra">Critical Infra</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -900,9 +880,9 @@
                     </tr>
 
                     <!-- SOUTH KOREA -->
-                    <tr class="tier-2" data-country="South Korea" data-tier="2" data-domain="AI Governance" data-priority="9">
+                    <tr data-country="South Korea" data-domain="AI Governance" data-priority="9">
                         <td><span class="country-flag">&#127472;&#127479;</span>South Korea</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>AI Basic Act (Framework Act)</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-enacted">Enacted</span></td>
@@ -914,9 +894,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-critical">9</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="South Korea" data-tier="2" data-domain="Data Privacy" data-priority="8">
+                    <tr data-country="South Korea" data-domain="Data Privacy" data-priority="8">
                         <td><span class="country-flag">&#127472;&#127479;</span>South Korea</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>PIPA - Domestic Representative</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-enacted">Enacted</span></td>
@@ -928,9 +908,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">8</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="South Korea" data-tier="2" data-domain="Data Privacy" data-priority="7">
+                    <tr data-country="South Korea" data-domain="Data Privacy" data-priority="7">
                         <td><span class="country-flag">&#127472;&#127479;</span>South Korea</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>PIPA - Data Portability Rights</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -944,9 +924,9 @@
                     </tr>
 
                     <!-- INDIA -->
-                    <tr class="tier-2" data-country="India" data-tier="2" data-domain="Data Privacy" data-priority="9">
+                    <tr data-country="India" data-domain="Data Privacy" data-priority="9">
                         <td><span class="country-flag">&#127470;&#127475;</span>India</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>DPDP Act - Phase 1 Implementation</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -958,9 +938,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-critical">9</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="India" data-tier="2" data-domain="Data Privacy" data-priority="6">
+                    <tr data-country="India" data-domain="Data Privacy" data-priority="6">
                         <td><span class="country-flag">&#127470;&#127475;</span>India</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>DPDP - Consent Manager Registration</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-pending">Pending</span></td>
@@ -972,9 +952,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-medium">6</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="India" data-tier="2" data-domain="AI Governance" data-priority="5">
+                    <tr data-country="India" data-domain="AI Governance" data-priority="5">
                         <td><span class="country-flag">&#127470;&#127475;</span>India</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>AI Governance Guidelines</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -988,9 +968,9 @@
                     </tr>
 
                     <!-- INDONESIA -->
-                    <tr class="tier-2" data-country="Indonesia" data-tier="2" data-domain="Data Privacy" data-priority="8">
+                    <tr data-country="Indonesia" data-domain="Data Privacy" data-priority="8">
                         <td><span class="country-flag">&#127470;&#127465;</span>Indonesia</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>PDP Law - Full Implementation</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -1002,9 +982,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">8</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="Indonesia" data-tier="2" data-domain="Data Privacy" data-priority="7">
+                    <tr data-country="Indonesia" data-domain="Data Privacy" data-priority="7">
                         <td><span class="country-flag">&#127470;&#127465;</span>Indonesia</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>PDP Agency Establishment</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-pending">Pending</span></td>
@@ -1016,9 +996,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">7</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="Indonesia" data-tier="2" data-domain="AI Governance" data-priority="6">
+                    <tr data-country="Indonesia" data-domain="AI Governance" data-priority="6">
                         <td><span class="country-flag">&#127470;&#127465;</span>Indonesia</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>AI Presidential Regulation</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-proposed">Proposed</span></td>
@@ -1032,9 +1012,9 @@
                     </tr>
 
                     <!-- PHILIPPINES -->
-                    <tr class="tier-2" data-country="Philippines" data-tier="2" data-domain="Data Privacy" data-priority="6">
+                    <tr data-country="Philippines" data-domain="Data Privacy" data-priority="6">
                         <td><span class="country-flag">&#127477;&#127469;</span>Philippines</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>Data Privacy Act - NPC Registration</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -1046,9 +1026,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-medium">6</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="Philippines" data-tier="2" data-domain="AI Governance" data-priority="5">
+                    <tr data-country="Philippines" data-domain="AI Governance" data-priority="5">
                         <td><span class="country-flag">&#127477;&#127469;</span>Philippines</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>AI Development Act (Proposed)</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-proposed">Proposed</span></td>
@@ -1062,9 +1042,9 @@
                     </tr>
 
                     <!-- NEW ZEALAND -->
-                    <tr class="tier-2" data-country="New Zealand" data-tier="2" data-domain="Data Privacy" data-priority="7">
+                    <tr data-country="New Zealand" data-domain="Data Privacy" data-priority="7">
                         <td><span class="country-flag">&#127475;&#127487;</span>New Zealand</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>Privacy Amendment - IPP3A</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-enacted">Enacted</span></td>
@@ -1076,9 +1056,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">7</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="New Zealand" data-tier="2" data-domain="Data Privacy" data-priority="6">
+                    <tr data-country="New Zealand" data-domain="Data Privacy" data-priority="6">
                         <td><span class="country-flag">&#127475;&#127487;</span>New Zealand</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>Biometrics Processing Privacy Code</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-enacted">Enacted</span></td>
@@ -1090,9 +1070,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-medium">6</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="New Zealand" data-tier="2" data-domain="AI Governance" data-priority="4">
+                    <tr data-country="New Zealand" data-domain="AI Governance" data-priority="4">
                         <td><span class="country-flag">&#127475;&#127487;</span>New Zealand</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>AI Strategy & Responsible AI Guidance</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -1106,9 +1086,9 @@
                     </tr>
 
                     <!-- HONG KONG -->
-                    <tr class="tier-2" data-country="Hong Kong" data-tier="2" data-domain="Cybersecurity" data-priority="7">
+                    <tr data-country="Hong Kong" data-domain="Cybersecurity" data-priority="7">
                         <td><span class="country-flag">&#127469;&#127472;</span>Hong Kong</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>Critical Infrastructure Ordinance</strong></td>
                         <td><span class="domain-tag domain-cyber">Cybersecurity</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -1120,9 +1100,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-high">7</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="Hong Kong" data-tier="2" data-domain="Data Privacy" data-priority="6">
+                    <tr data-country="Hong Kong" data-domain="Data Privacy" data-priority="6">
                         <td><span class="country-flag">&#127469;&#127472;</span>Hong Kong</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>PDPO - Proposed Amendments</strong></td>
                         <td><span class="domain-tag domain-privacy">Data Privacy</span></td>
                         <td><span class="status-badge status-proposed">Proposed</span></td>
@@ -1134,9 +1114,9 @@
                         <td><span class="extraterritorial extra-yes">Yes</span></td>
                         <td><span class="priority-score priority-medium">6</span></td>
                     </tr>
-                    <tr class="tier-2" data-country="Hong Kong" data-tier="2" data-domain="AI Governance" data-priority="4">
+                    <tr data-country="Hong Kong" data-domain="AI Governance" data-priority="4">
                         <td><span class="country-flag">&#127469;&#127472;</span>Hong Kong</td>
-                        <td><span class="tier-badge tier-2-badge">Tier 2</span></td>
+                        
                         <td><strong>Generative AI Technical Guidelines</strong></td>
                         <td><span class="domain-tag domain-ai">AI Governance</span></td>
                         <td><span class="status-badge status-active">Active</span></td>
@@ -1162,7 +1142,6 @@
     <script>
         function filterTable() {
             const countryFilter = document.getElementById('countryFilter').value.toLowerCase();
-            const tierFilter = document.getElementById('tierFilter').value;
             const domainFilter = document.getElementById('domainFilter').value.toLowerCase();
             const priorityFilter = document.getElementById('priorityFilter').value;
             const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
@@ -1171,7 +1150,6 @@
 
             rows.forEach(row => {
                 const country = row.dataset.country.toLowerCase();
-                const tier = row.dataset.tier;
                 const domain = row.dataset.domain.toLowerCase();
                 const priority = parseInt(row.dataset.priority);
                 const text = row.textContent.toLowerCase();
@@ -1179,7 +1157,6 @@
                 let show = true;
 
                 if (countryFilter && !country.includes(countryFilter)) show = false;
-                if (tierFilter && tier !== tierFilter) show = false;
                 if (domainFilter && !domain.includes(domainFilter)) show = false;
                 if (searchFilter && !text.includes(searchFilter)) show = false;
 
@@ -1202,7 +1179,7 @@
             const sortedRows = rows.sort((a, b) => {
                 let aValue, bValue;
 
-                if (columnIndex === 11) { // Priority column
+                if (columnIndex === 10) { // Priority column
                     aValue = parseInt(a.dataset.priority);
                     bValue = parseInt(b.dataset.priority);
                     return bValue - aValue; // Descending for priority
